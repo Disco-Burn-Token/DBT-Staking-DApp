@@ -2725,13 +2725,14 @@ var intervalId = window.setInterval(function () {
 //Called when site is loading.
 async function init() {
     await Moralis.start({ serverUrl, appId });
-    __WEB_3__ = new Web3(await Moralis.enableWeb3());
+
 
     updateAll();
     currentUser = await Moralis.User.current();
     global.user_profile.entity = currentUser;
     //If User is logged in
     if (currentUser) {
+        __WEB_3__ = new Web3(await Moralis.enableWeb3());
         logged_in = true;
         enableAll();
         document.getElementById("login_button").innerText = "Logout";
@@ -2748,7 +2749,7 @@ async function init() {
     else {
         logged_in = false;
         disableAll();
-
+        __WEB_3__ = new Web3(BLOCKCHAIN_NODE_URL);
         document.getElementById("login_button").innerText = "Sign in with MetaMask";
         document.getElementById("logged_in_info").style.display = "none";
     }
