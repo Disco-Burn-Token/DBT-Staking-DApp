@@ -15,12 +15,12 @@
 }
 
 .logged_in_info {
-    float: left;
+    /* float: left; */
     color: white;
-    width: fit-content;
+    width: 100%;
     padding-top: 30px;
-    margin-bottom: -15%;
-    margin-left: 10%;
+    margin-bottom: -2%;
+    /* margin-left: 10%; */
     display: none;
 }
 
@@ -113,10 +113,10 @@ label {
 .swapboxwindow {
     padding: 0%;
     Margin: 0%;
-    width: 450px;
+    max-width: 450px;
+    width: 100%;
     height: fit-content;
-    display: inline-block;
-    *display: inline;
+    display: block;
     zoom: 1
 }
 
@@ -652,7 +652,10 @@ body {
 
 @media only screen and (max-width: 770px) {
     .bubbly-button1 {
-        display: none;
+        /* display: none; */
+    }
+    .collapse .bubbly-button1{
+        margin: 0 5px;
     }
     .bubbly-button2 {
         margin-right: 0px;
@@ -721,4 +724,11 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 1199px) {
+    #window{
+        margin-top: 0;
+        padding: 25px 15px;
+    }
 }
