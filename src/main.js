@@ -1678,6 +1678,98 @@ const lockAbi = [
                 "internalType": "struct StakingUtils.TaxConfiguration",
                 "name": "taxConfig",
                 "type": "tuple"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_lockTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "penalty",
+                "type": "uint256"
+            }
+        ],
+        "name": "__StaticFixedTimeLockStaking_init",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "rewardRate",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "startTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "minStake",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "maxStake",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "contract ERC20",
+                        "name": "stakingToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "contract ERC20",
+                        "name": "rewardsToken",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct StakingUtils.StakingConfiguration",
+                "name": "config",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "stakeTax",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "unStakeTax",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "hpayFee",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "feeAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "hpayFeeAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "contract ERC20",
+                        "name": "hpayToken",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct StakingUtils.TaxConfiguration",
+                "name": "taxConfig",
+                "type": "tuple"
             }
         ],
         "name": "__TaxedStaking_init",
@@ -2185,6 +2277,25 @@ const lockAbi = [
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "lockEnded",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "lockTime",
         "outputs": [
@@ -2652,10 +2763,11 @@ const lockAbi = [
 ];
 
 
+const VAULT_1 = '0xa8F8085eeF32ce8a98f904429d43840925eDcBf1';
+const VAULT_2 = '0xBeCf04CCf5a6098affDb7D2Fea3DfE353843a9C8';
+const VAULT_3 = '0xd393a0D152Ad96C34E6E12F81389e8f824bF0795';
+const DBT_CONTRACT = '0xCFE99cD52E9a3D9d19858ef73531d80b80C735b6';
 
-const VAULT_1 = '0xaB1d38dEA3793f24E48056c563AbAC45FE428Ebb';
-const VAULT_2 = '0xB5a70FD60B78f7f7E9D1539944aa9ffEE64FD12a';
-const VAULT_3 = '0x75FC78ccb622929319Ad5d0522648Ee5662c567B';
 
 const serverUrl = "https://bd6xpqfykho5.usemoralis.com:2053/server"; //Server url from moralis.io
 const appId = "s9hVE8SmoSVGqcdEyp6eQhQmbFBVXxmvoMLPEaAU"; // Application id from moralis.io
@@ -2863,7 +2975,7 @@ async function isApproved(address) {
     if (!currentUser) {
         return true;
     }
-    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, '0xB4b11E5acbDA2Ba4743087dB75FdA76F613B8bc9');
+    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, DBT_CONTRACT);
     const account = currentUser.get('ethAddress');
 
     const allowance = await tokenContract.methods
@@ -2893,7 +3005,7 @@ async function approve(address, amount) {
     if (!currentUser) {
         return;
     }
-    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, '0xB4b11E5acbDA2Ba4743087dB75FdA76F613B8bc9');
+    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, DBT_CONTRACT);
     const account = currentUser.get('ethAddress');
 
     amount = new BigNumber('' + amount).multipliedBy(10 ** 9).toFixed();
@@ -2914,7 +3026,7 @@ async function tokenCheck() {
     if (!currentUser) {
         return;
     }
-    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, '0xB4b11E5acbDA2Ba4743087dB75FdA76F613B8bc9');
+    const tokenContract = new __WEB_3__.eth.Contract(erc20Abi, DBT_CONTRACT);
     const account = currentUser.get('ethAddress');
 
     const tokenBalance = await tokenContract.methods.balanceOf(account).call().then(data => data / 1e9);
@@ -2958,7 +3070,6 @@ const userAmount = async (address) => {
     const vaultContract = await (new __WEB_3__.eth.Contract(lockAbi, address));
     const account = currentUser.get('ethAddress');
 
-    const blockTime = await getBlockTime();
     const result = await vaultContract.methods.userInfo(account).call();
 
     const decimals = 1e9;
@@ -2969,8 +3080,7 @@ const userAmount = async (address) => {
     const [reward, balance] = result;
 
     const lock = await vaultContract.methods.locks(account).call();
-    const unlocked = blockTime >= lock * 1000;
-
+    const unlocked = await vaultContract.methods.lockEnded(account).call();
 
     return [reward / decimals, balance / decimals, lock * 1000
         , unlocked, reflections / decimals];
@@ -3134,6 +3244,7 @@ async function checkWihtelist(id, address) {
 
 async function checkAllowance(id, address) {
     const approved = await isApproved(address);
+    console.log(approved, "approved");
     if (!approved) {
         document.querySelector(id + " .btn-approve").style.display = 'block';
         document.querySelector(id + " .btn-approve").onclick = async function () {
@@ -3144,7 +3255,7 @@ async function checkAllowance(id, address) {
             }, 700);
 
         };
-
+        console.log(document.querySelector(id + " .btn-stake"));
         document.querySelector(id + " .btn-stake").style.display = 'none';
         document.querySelector(id + " .btn-unstake").style.display = 'none';
     } else {
