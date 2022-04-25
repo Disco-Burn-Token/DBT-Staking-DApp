@@ -2056,6 +2056,19 @@ const lockAbi = [
     },
     {
         "inputs": [],
+        "name": "endBlock",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "getInfo",
         "outputs": [
             {
@@ -2606,6 +2619,26 @@ const lockAbi = [
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "start",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "started",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "bytes4",
@@ -2763,10 +2796,10 @@ const lockAbi = [
 ];
 
 
-const VAULT_1 = '0xa8F8085eeF32ce8a98f904429d43840925eDcBf1';
-const VAULT_2 = '0xBeCf04CCf5a6098affDb7D2Fea3DfE353843a9C8';
-const VAULT_3 = '0xd393a0D152Ad96C34E6E12F81389e8f824bF0795';
-const DBT_CONTRACT = '0xCFE99cD52E9a3D9d19858ef73531d80b80C735b6';
+const VAULT_1 = '0x8ae6236eeA500A7258B04C056dD988e577Fb68aa';
+const VAULT_2 = '0x6633EC501cA8E9CbdA5B709501709eFff94F33d2';
+const VAULT_3 = '0x3D8957a0771aF219229b8655b1b188DD692E768F';
+const DBT_CONTRACT = '0x63E165778d9858f234802A869F37B16C50ADc06F';
 
 
 const serverUrl = "https://bd6xpqfykho5.usemoralis.com:2053/server"; //Server url from moralis.io
