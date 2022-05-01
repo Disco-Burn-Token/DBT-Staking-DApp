@@ -1,5 +1,5 @@
 //import * as helper from './w3Helper.js';
-const BLOCKCHAIN_NODE_URL = "https://blue-dog.defitect.com";
+const BLOCKCHAIN_NODE_URL = "https://bsc-dataseed.binance.org/";
 var __WEB_3__ = new Web3(BLOCKCHAIN_NODE_URL);
 
 
@@ -2796,10 +2796,10 @@ const lockAbi = [
 ];
 
 
-const VAULT_1 = '0x8ae6236eeA500A7258B04C056dD988e577Fb68aa';
-const VAULT_2 = '0x6633EC501cA8E9CbdA5B709501709eFff94F33d2';
-const VAULT_3 = '0x3D8957a0771aF219229b8655b1b188DD692E768F';
-const DBT_CONTRACT = '0x63E165778d9858f234802A869F37B16C50ADc06F';
+const VAULT_1 = '0x2a3bb04E731cf190b4a5420D48AffB959826e132';
+const VAULT_2 = '0x34Ac898d223ae189a889237a5A22bF2eb2328d6b';
+const VAULT_3 = '0x6bAA3C7b644f54b8984EB4D93b021a2B966cCFc5';
+const DBT_CONTRACT = '0x4A251d4fDcbbbc0A3d6Aa44F14B96480C4933C9C';
 
 
 const serverUrl = "https://bd6xpqfykho5.usemoralis.com:2053/server"; //Server url from moralis.io
