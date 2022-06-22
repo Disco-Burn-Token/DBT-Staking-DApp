@@ -2880,13 +2880,13 @@ async function init() {
         __WEB_3__ = new Web3(await Moralis.enableWeb3());
         logged_in = true;
         enableAll();
-        document.getElementById("login_button").innerText = "Logout";
         userAddress = currentUser.get('ethAddress');
-        document.getElementById("current-wallet").innerText = "0x..." + userAddress.slice(38);
         tokenCheck();
         setHelperData();
-
-        document.getElementById("logged_in_info").style.display = "block";
+        document.getElementById("connect_button").style.display = "none";
+        document.getElementById("disconnect_button").style.display = "inline-block";
+        document.getElementById("wallet_addr").innerText = "0x..." + userAddress.slice(38);
+        document.getElementById("wallet_addr_cont").style.display = "inline-block";
         await generalValidations();
     }
 
@@ -2895,8 +2895,7 @@ async function init() {
         logged_in = false;
         disableAll();
         __WEB_3__ = new Web3(BLOCKCHAIN_NODE_URL);
-        document.getElementById("login_button").innerText = "Sign in with MetaMask";
-        document.getElementById("logged_in_info").style.display = "none";
+        document.getElementById("wallet_addr_cont").style.display = "none";
     }
 }
 
@@ -2926,10 +2925,14 @@ async function login() {
     try {
         currentUser = Moralis.User.current();
         if (!currentUser) {
-            document.getElementById("login_button").innerText = "Authenticating...";
             currentUser = await Moralis.authenticate();
             userAddress = currentUser.get('ethAddress');
-            document.getElementById("current-wallet").innerText = "0x..." + userAddress.slice(38);
+            closeWalletModal();
+            document.getElementById("connect_button").style.display = "none";
+            document.getElementById("disconnect_button").style.display = "inline-block";
+            document.getElementById("wallet_addr").innerText = "0x..." + userAddress.slice(38);
+            document.getElementById("wallet_addr_cont").style.display = "inline-block";
+            mmLogin = true;
             enableAll();
             tokenCheck();
             generalValidations();
@@ -2938,15 +2941,12 @@ async function login() {
         } else {
             logOut();
         }
-        document.getElementById("login_button").innerText = "Logout";
-        document.getElementById("logged_in_info").style.display = "block";
         logged_in = true;
 
 
     } catch (error) {
         if (error.message == "MetaMask Message Signature: User denied message signature.") {
             alert("Login cancelled");
-            document.getElementById("login_button").innerText = "Sign in with Metamask";
         }
     }
 
@@ -2956,37 +2956,36 @@ async function login() {
 }
 async function logOut() {
     currentUser = await Moralis.User.logOut();
-    document.getElementById("login_button").innerText = "Sign in with Metamask";
+    mmLogin = false;
     disableAll();
-    document.getElementById("logged_in_info").style.display = "none";
     updateAll();
-
     logged_in = false;
 }
 
 async function loginWC() {
     try {
         currentUser = Moralis.User.current();
-        if (!currentUser) {
-            document.getElementById("login_button_wc").innerText = "Authenticating...";
+        if (!currentUser) {       
             currentUser = await Moralis.authenticate({ provider: "walletconnect", chainId: 56 });
             userAddress = currentUser.get('ethAddress');
             generalValidations();
             __WEB_3__ = new Web3(await Moralis.enableWeb3());
-            document.getElementById("current-wallet").innerText = "0x..." + userAddress.slice(38);
             enableAll();
             tokenCheck();
             setHelperData();
+            closeWalletModal();
+            document.getElementById("connect_button").style.display = "none";
+            document.getElementById("disconnect_button").style.display = "inline-block";
+            document.getElementById("wallet_addr").innerText = "0x..." + userAddress.slice(38);
+            document.getElementById("wallet_addr_cont").style.display = "inline-block";
+            wcLogin = true;
         } else {
             logOutWC();
         }
-        document.getElementById("login_button_wc").innerText = "Logout";
-        document.getElementById("logged_in_info").style.display = "block";
         logged_in = true;
     } catch (error) {
         if (error.message == "User closed modal") {
             alert("Login cancelled");
-            document.getElementById("login_button_wc").innerText = "Sign in with WalletConnect";
         }
     }
 
@@ -2995,12 +2994,8 @@ async function loginWC() {
 
 async function logOutWC() {
     currentUser = await Moralis.User.logOut();
-    document.getElementById("login_button_wc").innerText = "Sign in with WalletConnect";
     disableAll();
-    document.getElementById("logged_in_info").style.display = "none";
-
     updateAll();
-
     logged_in = false;
 }
 
@@ -3345,6 +3340,25 @@ async function checkAllowance(id, address) {
     }
 }
 
+function openWalletModal() {
+    document.getElementById("wallet_modal").style.display = "block";
+}
+
+function closeWalletModal() {
+    document.getElementById("wallet_modal").style.display = "none";
+}
+
+function disconnect() {
+    if (mmLogin = true) {
+        logOut();
+    } else {
+        logOutWC();
+    }
+    document.getElementById("wallet_addr_cont").style.display = "none";
+    document.getElementById("disconnect_button").style.display = "none";
+    document.getElementById("connect_button").style.display = "inline-block";
+    document.getElementById("dvt-balance-current").innerText = "Not Logged In";
+}
 
 //function openModal() {
 //document.getElementById("modal"). = "block";
@@ -3365,7 +3379,9 @@ init();
 //document.getElementById("modal_close").onclick = closeModal;
 
 //This what faciliates the links between the HTML buttons and the javascript functions, uncomment or add/remove as needed when you add new cards in the HTML
-document.getElementById("lg").onclick = logOut;
+document.getElementById("connect_button").onclick = openWalletModal;
+document.getElementById("wallet_modal_close").onclick = closeWalletModal;
+document.getElementById("disconnect_button").onclick = disconnect;
 document.getElementById("login_button").onclick = login;
 document.getElementById("login_button_wc").onclick = loginWC;
 document.querySelector("#vault-1 .btn-claim").onclick = async function () {

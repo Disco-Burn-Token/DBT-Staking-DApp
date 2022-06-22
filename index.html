@@ -29,34 +29,19 @@
 
 <body class="tmbg" style="background-image: url(https://discoburntoken.com/wp-content/uploads/2021/12/Blockchain-Background.jpg)">
     <!--Side Bar-->
-    <nav style="background-color: #bd28708e;" class="navbar navbar-expand-lg navbar-dark">
+    <ul style="background-color: #bd28708e;">
+        <li style="float:left"></li>>
         <a class="navbar-brand" href="https://discoburntoken.com/"><img src="https://discoburntoken.com/wp-content/uploads/2021/12/discoburn.png" class="navbar-brand-responsive_new" style='width: 100%;'></a>
-        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>-->
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="https://discoburntoken.com/" id="lg"><span class="sr-only">(current)</span></a>
-                </li>-
-            </ul>
-            <!--<div class="Sign-in-Div" style="width: 100%;">-->
-            <button id="login_button" class="bubbly-button1" type="submit">
-                    <span>Sign In with MetaMask</span>
-            </button>
-            <button id="login_button_wc" class="bubbly-button2" type="submit">Sign in with WalletConnect</button>
-        </div>
-    </nav>
+        </li>
+        <li><button id="connect_button" class="bubbly-button3" type="submit">Connect</button></li>
+        <li><button style="display:none" id="disconnect_button" class="bubbly-button3" type="submit">Logout</button></li>
+        <li><button style="display:none" id="wallet_addr_cont" class="bubbly-button3" type="submit">Wallet: <span id="wallet_addr"></span></button></li>
+    </ul>
     <div id="logged_in_info" class="logged_in_info">
-        <div class="d-flex align-items-center justify-content-end px-4">
-            <div class="wallet-info">
-                <label for="current-wallet">Wallet:</label>
-                <p id="current-wallet">Not Logged in</p>
-            </div>
+        <div class="align-items-center justify-content-end px-4">
             <div class="dvt-balance mt-0 ml-3">
                 <label for="dvt-balance-current">DBT Balance:</label>
-                <p id="dvt-balance-current"></p>
+                <p id="dvt-balance-current">Not Logged In</p>
             </div>
         </div>
     </div>
@@ -97,7 +82,7 @@
                                 <small class="mt-0 user-earned-reflections"></small>
                             </div>
                             <div class="col-auto text-right">
-                                <button class="btn  bubbly-button1 btn-claim m-0 mt-2">Claim</button>
+                                <button class="btn  bubbly-button btn-claim m-0 mt-2">Claim</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -158,9 +143,9 @@
                         <h3 id="not-whitelisted" class="text-center" style="display: none;">Your wallet is not whitelisted</h3>
 
 
-                        <button class="btn bubbly-button1 btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
-                        <button class="btn  bubbly-button1 btn-stake m-0 mt-2 w-100" data-toggle="modal" data-target="#infoModal">Stake</button>
-                        <button class="btn  bubbly-button1 btn-unstake m-0 mt-2 w-100">Unstake</button>
+                        <button class="btn bubbly-button btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
+                        <button class="btn  bubbly-button btn-stake m-0 mt-2 w-100" data-toggle="modal" data-target="#infoModal">Stake</button>
+                        <button class="btn  bubbly-button btn-unstake m-0 mt-2 w-100">Unstake</button>
 
                         <h3 id="error-msg" class="text-center"></h3>
 
@@ -202,7 +187,7 @@
                                 <small class="mt-0 user-earned-reflections"></small>
                             </div>
                             <div class="col-auto text-right">
-                                <button class="btn  bubbly-button1 btn-claim m-0 mt-2">Claim</button>
+                                <button class="btn  bubbly-button btn-claim m-0 mt-2">Claim</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -262,9 +247,9 @@
 
                         <h3 id="not-whitelisted" class="text-center" style="display: none;">Your wallet is not whitelisted</h3>
 
-                        <button class="btn bubbly-button1 btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
-                        <button class="btn  bubbly-button1 btn-stake m-0 mt-2 w-100">Stake</button>
-                        <button class="btn  bubbly-button1 btn-unstake m-0 mt-2 w-100">Unstake</button>
+                        <button class="btn bubbly-button btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
+                        <button class="btn  bubbly-button btn-stake m-0 mt-2 w-100">Stake</button>
+                        <button class="btn  bubbly-button btn-unstake m-0 mt-2 w-100">Unstake</button>
 
                         <h3 id="error-msg" class="text-center"></h3>
 
@@ -306,7 +291,7 @@
                                 <small class="mt-0 user-earned-reflections"></small>
                             </div>
                             <div class="col-auto text-right">
-                                <button class="btn  bubbly-button1 btn-claim m-0 mt-2">Claim</button>
+                                <button class="btn  bubbly-button btn-claim m-0 mt-2">Claim</button>
                             </div>
                         </div>
                         <!-- /.row -->
@@ -367,19 +352,40 @@
                         </div>
                         <h3 id="not-whitelisted" class="text-center" style="display: none;">Your wallet is not whitelisted</h3>
 
-                        <button class="btn bubbly-button1 btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
-                        <button class="btn  bubbly-button1 btn-stake m-0 mt-2 w-100">Stake</button>
-                        <button class="btn  bubbly-button1 btn-unstake m-0 mt-2 w-100">Unstake</button>
+                        <button class="btn bubbly-button btn-approve m-0 mt-2 w-100 " style="display:none">Approve</button>
+                        <button class="btn  bubbly-button btn-stake m-0 mt-2 w-100">Stake</button>
+                        <button class="btn  bubbly-button btn-unstake m-0 mt-2 w-100">Unstake</button>
 
                         <h3 id="error-msg" class="text-center"></h3>
 
                     </div>
                 </div>
+                
             </div>
         </div>
 
 
-
+        <div class="modal" id="wallet_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-header-text">
+                            Choose a Wallet Provider
+                        </div>
+                        <button id="wallet_modal_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="wallet-modal-body">
+                        <div class="buttons">
+                            <button class="bubbly-button1" id="login_button" type="submit">Metamask</button>
+                            <br>
+                            <button class="bubbly-button2" id="login_button_wc" type="submit">WalletConnect</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <span class="stretch"></span>
     </div>
 
@@ -391,7 +397,7 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js " integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin=" anonymous "></script>
     <script src="semantic/dist/semantic.min.js "></script>
-    <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
+    <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.8/web3-provider.min.js"></script>
     <script src="src/main.js "></script>
     <script src="src/w3Helper.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
