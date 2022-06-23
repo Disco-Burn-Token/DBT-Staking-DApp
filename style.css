@@ -98,6 +98,7 @@ ul {
     display: inline-flex;
     flex-wrap: wrap;
     padding-bottom: 50px;
+    margin-top: 2%;
 }
 
 .vote-count-input-container {
