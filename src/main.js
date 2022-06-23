@@ -2968,16 +2968,16 @@ async function loginWC() {
         if (!currentUser) {       
             currentUser = await Moralis.authenticate({ provider: "walletconnect", chainId: 56 });
             userAddress = currentUser.get('ethAddress');
-            generalValidations();
-            __WEB_3__ = new Web3(await Moralis.enableWeb3());
-            enableAll();
-            tokenCheck();
-            setHelperData();
             closeWalletModal();
             document.getElementById("connect_button").style.display = "none";
             document.getElementById("disconnect_button").style.display = "inline-block";
             document.getElementById("wallet_addr").innerText = "0x..." + userAddress.slice(38);
             document.getElementById("wallet_addr_cont").style.display = "inline-block";
+            generalValidations();
+            __WEB_3__ = new Web3(await Moralis.enableWeb3());
+            enableAll();
+            tokenCheck();
+            setHelperData();
             wcLogin = true;
         } else {
             logOutWC();
